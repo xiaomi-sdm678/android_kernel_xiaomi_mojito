@@ -210,12 +210,10 @@ unsigned int sched_capacity_margin_up_boosted[NR_CPUS] = {
 unsigned int sched_capacity_margin_down_boosted[NR_CPUS] = {
 			[0 ... NR_CPUS-1] = 4096}; /* ~75% margin */
 
-#ifdef CONFIG_SCHED_WALT
 /* 1ms default for 20ms window size scaled to 1024 */
 unsigned int sysctl_sched_min_task_util_for_boost = 51;
 /* 0.68ms default for 20ms window size scaled to 1024 */
 unsigned int sysctl_sched_min_task_util_for_colocation = 35;
-#endif
 
 static inline void update_load_add(struct load_weight *lw, unsigned long inc)
 {
@@ -6104,6 +6102,8 @@ static unsigned long cpu_util_without(int cpu, struct task_struct *p)
 {
 	unsigned int util;
 
+	struct cfs_rq *cfs_rq;
+
 #ifdef CONFIG_SCHED_WALT
 	/*
 	 * WALT does not decay idle tasks in the same manner
@@ -6123,7 +6123,6 @@ static unsigned long cpu_util_without(int cpu, struct task_struct *p)
 #ifdef CONFIG_SCHED_WALT
 	util = max_t(long, cpu_util(cpu) - task_util(p), 0);
 #else
-	struct cfs_rq *cfs_rq;
 
 	cfs_rq = &cpu_rq(cpu)->cfs;
 	util = READ_ONCE(cfs_rq->avg.util_avg);
@@ -9668,12 +9667,7 @@ redo:
 
 		continue;
 next:
-#ifdef CONFIG_SCHED_WALT
-		trace_sched_load_balance_skip_tasks(env->src_cpu, env->dst_cpu,
-				env->src_grp_type, p->pid, load, task_util(p),
-				cpumask_bits(&p->cpus_allowed)[0]);
-#endif
-		list_move_tail(&p->se.group_node, tasks);
+		list_move(&p->se.group_node, tasks);
 	}
 
 	if (env->flags & (LBF_IGNORE_BIG_TASKS |
