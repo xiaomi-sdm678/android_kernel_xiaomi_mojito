@@ -716,4 +716,6 @@ config VSERVICES_VTTY_COUNT
 	  The maximum number of Virtual Services serial devices to support.
 	  This limit applies to both the client and server.
 
+source "drivers/char/srandom/Kconfig"
+
 endmenu
