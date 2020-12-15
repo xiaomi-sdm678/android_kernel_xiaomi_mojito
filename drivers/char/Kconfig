@@ -648,6 +648,8 @@ config RANDOM_TRUST_CPU
 	  setting.  Enabling this implies trusting that the CPU can supply high
 	  quality and non-backdoored random numbers.
 
+source "drivers/char/srandom/Kconfig"
+
 config OKL4_PIPE
       bool "OKL4 Pipe Driver"
       depends on OKL4_GUEST
