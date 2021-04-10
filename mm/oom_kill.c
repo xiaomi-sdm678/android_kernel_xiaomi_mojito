@@ -1,6 +1,6 @@
 /*
  *  linux/mm/oom_kill.c
- * 
+ *
  *  Copyright (C)  1998,2000  Rik van Riel
  *	Thanks go out to Claus Fischer for some serious inspiration and
  *	for goading me into coding this file...
@@ -705,7 +705,9 @@ void exit_oom_victim(void)
 void oom_killer_enable(void)
 {
 	oom_killer_disabled = false;
+#ifdef CONFIG_DEBUG_KERNEL
 	pr_debug("OOM killer enabled.\n");
+#endif
 }
 
 /**
@@ -742,8 +744,9 @@ bool oom_killer_disable(signed long timeout)
 		oom_killer_enable();
 		return false;
 	}
+#ifdef CONFIG_DEBUG_KERNEL
 	pr_debug("OOM killer disabled.\n");
-
+#endif
 	return true;
 }
 
