@@ -103,11 +103,14 @@
 #define ALIGN __ALIGN
 #define ALIGN_STR __ALIGN_STR
 
-/* === DEPRECATED annotations === */
-
 #ifndef GLOBAL
-/* deprecated, use SYM_DATA*, SYM_ENTRY, or similar */
 #define GLOBAL(name) \
+	.globl name ASM_NL \
+	name:
+#endif
+
+#ifndef ENTRY
+#define ENTRY(name) \
 	.globl name ASM_NL \
 	name:
 #endif
