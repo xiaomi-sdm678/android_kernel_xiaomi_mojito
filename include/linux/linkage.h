@@ -122,7 +122,9 @@
 #ifndef WEAK
 /* deprecated, use SYM_FUNC_START_WEAK* */
 #define WEAK(name)	   \
-	SYM_FUNC_START_WEAK(name)
+	.weak name ASM_NL   \
+	ALIGN ASM_NL \
+	name:
 #endif
 
 #ifndef END
