@@ -103,16 +103,19 @@
 #define ALIGN __ALIGN
 #define ALIGN_STR __ALIGN_STR
 
+/* === DEPRECATED annotations === */
+
 #ifndef GLOBAL
+/* deprecated, use SYM_DATA*, SYM_ENTRY, or similar */
 #define GLOBAL(name) \
 	.globl name ASM_NL \
 	name:
 #endif
 
 #ifndef ENTRY
+/* deprecated, use SYM_FUNC_START */
 #define ENTRY(name) \
-	.globl name ASM_NL \
-	name:
+	SYM_FUNC_START(name)
 #endif
 
 #ifndef ENTRY
@@ -125,9 +128,7 @@
 #ifndef WEAK
 /* deprecated, use SYM_FUNC_START_WEAK* */
 #define WEAK(name)	   \
-	.weak name ASM_NL   \
-	ALIGN ASM_NL \
-	name:
+	SYM_FUNC_START_WEAK(name)
 #endif
 
 #ifndef END
