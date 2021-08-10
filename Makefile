@@ -780,6 +780,7 @@ KBUILD_CFLAGS += $(call cc-option, -Wno-tautological-constant-out-of-range-compa
 KBUILD_CFLAGS += $(call cc-option, -mllvm -disable-struct-const-merge)
 KBUILD_CFLAGS += $(call cc-option, -Wno-sometimes-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning, void-pointer-to-enum-cast)
+KBUILD_CFLAGS += $(call cc-disable-warning, unused-but-set-variable)
 
 # Quiet clang warning: comparison of unsigned expression < 0 is always false
 
