@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
  * Copyright (C) 2021 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,6 +16,7 @@
 /plugin/;
 
 #include "trinket-iot-idp.dtsi"
+#include "trinket-audio-overlay.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. TRINKET IOT IDP Overlay";
@@ -23,4 +24,3 @@
 	qcom,msm-id = <467 0x10000>;
 	qcom,board-id = <34 0>;
 };
-
