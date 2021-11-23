@@ -48,6 +48,7 @@
 		qcom,mdss-pan-physical-height-dimension = <149>;
 		qcom,dispparam-enabled;
 
+ 		qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 		qcom,mdss-dsi-display-timings {
 			timing@0 {
 				qcom,mdss-dsi-panel-width = <1080>;
