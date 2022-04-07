@@ -1768,14 +1768,14 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 	u8				endp;
 
 	if (w_length > USB_COMP_EP0_BUFSIZ) {
-		if (ctrl->bRequestType & USB_DIR_IN) {
+		if (ctrl->bRequestType == USB_DIR_OUT) {
+			goto done;
+		} else {
 			/* Cast away the const, we are going to overwrite on purpose. */
 			__le16 *temp = (__le16 *)&ctrl->wLength;
 
 			*temp = cpu_to_le16(USB_COMP_EP0_BUFSIZ);
 			w_length = USB_COMP_EP0_BUFSIZ;
-		} else {
-			goto done;
 		}
 	}
 
@@ -2484,7 +2484,7 @@ void composite_suspend(struct usb_gadget *gadget)
 
 	cdev->suspended = 1;
 	spin_unlock_irqrestore(&cdev->lock, flags);
-	
+
 	usb_gadget_set_selfpowered(gadget);
 #ifdef CONFIG_TARGET_PROJECT_J20C
 	usb_gadget_vbus_draw(gadget, 500);    //qcom KBA-171218012414,liwei6 modify,20200730
