@@ -15,7 +15,6 @@
 #include <linux/kernel.h>
 #include <linux/random.h>
 #include <linux/io.h>
-#include <linux/random.h>
 
 #include <soc/qcom/scm.h>
 
