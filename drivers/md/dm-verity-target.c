@@ -586,6 +586,7 @@ static int verity_verify_io(struct dm_verity_io *io)
 	return 0;
 }
 
+
 /*
  * End one "io" structure with a given error.
  */
