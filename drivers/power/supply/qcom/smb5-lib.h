@@ -8,6 +8,8 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
+ *
+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #ifndef __SMB5_CHARGER_H
@@ -99,7 +101,7 @@ enum print_reason {
 #define MAIN_CHG_VOTER			"MAIN_CHG_VOTER"
 #define HVDCP3_START_ICL_VOTER	"HVDCP3_START_ICL_VOTER"
 #define OTG_VOTER                       "OTG_VOTER"
-
+#define GPIO_DCIN_VOTER			"GPIO_DCIN_VOTER"
 #define QC2_UNSUPPORTED_VOTER           "QC2_UNSUPPORTED_VOTER"
 #define CC_UN_COMPLIANT_VOTER		"CC_UN_COMPLIANT_VOTER"
 
@@ -587,6 +589,7 @@ struct smb_charger {
 	struct delayed_work	reg_work;
 	struct delayed_work	pr_lock_clear_work;
 	struct delayed_work	reduce_fcc_work;
+	struct delayed_work	micro_usb_switch_work;	
 #ifdef CONFIG_BATT_VERIFY_BY_DS28E16
 	struct delayed_work     charger_soc_decimal;
 #endif
@@ -780,6 +783,16 @@ struct smb_charger {
 	bool			bq_input_suspend;
 
 	bool			hvdcp_recheck_status;
+	/* GPIO DCIN Supply */
+	int			micro_usb_gpio;
+	int			micro_usb_irq;
+	int			dc_9v_gpio;
+	int			dc_9v_irq;
+	int			usb_switch_gpio;
+	int			usb_hub_33v_en_gpio;
+	int			micro_usb_pre_state;
+	bool			dcin_uusb_over_gpio_en;
+	bool			aicl_disable;	
 #ifdef CONFIG_REVERSE_CHARGE
 	bool        reverse_charge_mode;
 	bool        reverse_charge_state;
@@ -862,6 +875,7 @@ irqreturn_t typec_or_rid_detection_change_irq_handler(int irq, void *data);
 irqreturn_t temp_change_irq_handler(int irq, void *data);
 irqreturn_t usbin_ov_irq_handler(int irq, void *data);
 irqreturn_t sdam_sts_change_irq_handler(int irq, void *data);
+irqreturn_t smb_micro_usb_irq_handler(int irq, void *data);
 int smblib_get_prop_input_suspend(struct smb_charger *chg,
 				union power_supply_propval *val);
 int smblib_get_prop_batt_present(struct smb_charger *chg,
