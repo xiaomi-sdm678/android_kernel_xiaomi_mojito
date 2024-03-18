@@ -814,6 +814,10 @@ int dsi_panel_set_backlight(struct dsi_panel *panel, u32 bl_lvl)
 static u32 dsi_panel_get_brightness(struct dsi_backlight_config *bl)
 {
 	u32 cur_bl_level;
+#ifdef CONFIG_EXPOSURE_ADJUSTMENT
+	u32 bl_lvl; 
+	int bl_dc_min;
+#endif
 	struct backlight_device *bd = bl->raw_bd;
 
 	/* default the brightness level to 50% */
