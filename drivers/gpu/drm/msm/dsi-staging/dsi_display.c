@@ -49,10 +49,6 @@
 
 static struct dsi_display *whitep_display;
 extern char g_lcd_id[128];
-//Update /proc/tp_info & /proc/tp_lockdown_info node
-extern void update_lct_tp_info(char *tp_info_buf, char *tp_lockdown_info_buf);
-//Set tp_lockdown_info node callback funcation
-extern void set_lct_tp_lockdown_info_callback(int (*pfun)(void));
 extern char *saved_command_line;
 
 DEFINE_MUTEX(dsi_display_clk_mutex);
